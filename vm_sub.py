@@ -5,7 +5,6 @@ import paho.mqtt.client as mqtt
 
 """This function (or "callback") will be executed when this client receives 
 a connection acknowledgement packet response from the server. """
-
 def on_connect(client, userdata, flags, rc):
     """Once our client has successfully connected, it makes sense to subscribe to
     all the topics of interest. Also, subscribing in on_connect() means that, 
@@ -14,25 +13,34 @@ def on_connect(client, userdata, flags, rc):
 
     print("Connected to server (i.e., broker) with result code "+str(rc))
     #replace user with your USC username in all subscriptions
-    client.subscribe("user/ipinfo")
+    client.subscribe("surpreet/ipinfo")
+    client.subscribe("surpreet/dateinfo")
+    client.subscribe("surpreet/timeinfo")
     
     #Add the custom callbacks by indicating the topic and the name of the callback handle
-    client.message_callback_add("user/ipinfo", on_message_from_ipinfo)
+    client.message_callback_add("surpreet/ipinfo", on_message_from_ipinfo)
+    client.message_callback_add("surpreet/dateinfo", on_message_from_dateinfo)
+    client.message_callback_add("surpreet/timeinfo", on_message_from_timeinfo)
 
 
 """This object (functions are objects!) serves as the default callback for 
 messages received when another node publishes a message this client is 
-subscribed to. By "default,"" we mean that this callback is called if a custom 
+subscribed to. By "default," we mean that this callback is called if a custom 
 callback has not been registered using paho-mqtt's message_callback_add()."""
 def on_message(client, userdata, msg):
     print("Default callback - topic: " + msg.topic + "   msg: " + str(msg.payload, "utf-8"))
 
-#Custom message callback.
+#Custom message callback for IP info
 def on_message_from_ipinfo(client, userdata, message):
    print("Custom callback  - IP Message: "+message.payload.decode())
 
+#Custom message callback for Date info
+def on_message_from_dateinfo(client, userdata, message):
+   print("Custom callback  - Date: "+message.payload.decode())
 
-
+#Custom message callback for Time info
+def on_message_from_timeinfo(client, userdata, message):
+   print("Custom callback  - Time: "+message.payload.decode())
 
 if __name__ == '__main__':
     
