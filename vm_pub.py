@@ -13,17 +13,18 @@ def on_connect(client, userdata, flags, rc):
 
 
 if __name__ == '__main__':
-    #get IP address
-    ip_address=0 
+    # Get IP address
+    ip_address = socket.gethostbyname(socket.gethostname())
+
     """your code here"""
-    #create a client object
+    # Create a client object
     client = mqtt.Client()
     
-    #attach the on_connect() callback function defined above to the mqtt client
+    # Attach the on_connect() callback function defined above to the MQTT client
     client.on_connect = on_connect
     """Connect using the following hostname, port, and keepalive interval (in 
     seconds). We added "host=", "port=", and "keepalive=" for illustrative 
-    purposes. You can omit this in python.
+    purposes. You can omit this in Python.
         
     The keepalive interval indicates when to send keepalive packets to the 
     server in the event no messages have been published from or sent to this 
@@ -32,18 +33,26 @@ if __name__ == '__main__':
 
     client.connect(host="test.mosquitto.org", port=1883, keepalive=60)
 
-    """ask paho-mqtt to spawn a separate thread to handle
-    incoming and outgoing mqtt messages."""
+    """Ask paho-mqtt to spawn a separate thread to handle
+    incoming and outgoing MQTT messages."""
     client.loop_start()
     time.sleep(1)
 
     while True:
-        #replace user with your USC username in all subscriptions
-        client.publish("user/ipinfo", f"{ip_address}")
-        print("Publishing ip address")
+        # Replace 'user' with your USC username in all subscriptions
+        client.publish("surpreet/ipinfo", f"{ip_address}")
+        print(f"Publishing IP address: {ip_address}")
         time.sleep(4)
 
-        #get date and time 
-        """your code here"""
-        #publish date and time in their own topics
-        """your code here"""
+        # Get date and time 
+        current_date = datetime.now().strftime("%Y-%m-%d")
+        current_time = datetime.now().strftime("%H:%M:%S")
+
+        # Publish date and time in their own topics
+        client.publish("surpreet/dateinfo", current_date)
+        print(f"Publishing Date: {current_date}")
+
+        client.publish("surpreet/timeinfo", current_time) 
+        print(f"Publishing Time: {current_time}")
+
+        time.sleep(4) 
