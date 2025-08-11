@@ -1,6 +1,3 @@
-"""EE 250L Lab 04 Starter Code
-Run vm_sub.py in a separate terminal on your VM."""
-
 import paho.mqtt.client as mqtt
 import time
 from datetime import datetime
@@ -39,7 +36,6 @@ if __name__ == '__main__':
     time.sleep(1)
 
     while True:
-        # Replace 'user' with your USC username in all subscriptions
         client.publish("surpreet/ipinfo", f"{ip_address}")
         print(f"Publishing IP address: {ip_address}")
         time.sleep(4)
