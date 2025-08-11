@@ -22,11 +22,11 @@ cd mqtt-examplest
 python3 -m venv venv
 source venv/bin/activate  # Windows: venv\Scripts\activate
 ```
-##Install dependencies:
+## Install dependencies:
 ```bash
 pip install -r requirements.txt
 ```
-##Run the public broker example:
+## Run the public broker example:
 ```bash
 # Terminal 1 — Subscriber
 python vm_sub.py
@@ -35,7 +35,7 @@ python vm_sub.py
 python vm_pub.py
 ```
 
-##Example Output: 
+## Example Output: 
 ```bash
 Connected to broker with result code 0
 IP Message: 192.168.1.10
@@ -43,14 +43,14 @@ Date: 2025-08-11
 Time: 11:02:03
 ```
 
-##Notes 
+## Notes 
 ```bash
 The public broker test.mosquitto.org is shared — avoid sending sensitive data.
 Use unique topic prefixes to prevent collisions.
 Requires TCP access to port 1883.
 ```
 
-##Resources 
+## Resources 
 ```bash
 Paho MQTT Python Client
 Mosquitto MQTT Broker
